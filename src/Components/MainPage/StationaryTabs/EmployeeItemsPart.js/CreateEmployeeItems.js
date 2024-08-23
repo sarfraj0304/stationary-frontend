@@ -24,8 +24,8 @@ const CreateEmployeeItems = ({ data, employees, items, setTableView }) => {
   const [UserItemMutate, { isLoading }] = useCreateUserItemsMutation();
 
   const handleResetForm = async () => {
-    dynamicForm1?.current?.handleReset(event);
-    dynamicForm2?.current?.handleReset(event);
+    dynamicForm1?.current?.handleReset();
+    dynamicForm2?.current?.handleReset();
     setReset(false);
   };
 
@@ -95,8 +95,8 @@ const CreateEmployeeItems = ({ data, employees, items, setTableView }) => {
   ];
 
   const handleSubmit = async () => {
-    const form1 = await dynamicForm1?.current?.onSubmit(event);
-    const form2 = await dynamicForm2?.current?.onSubmit(event);
+    const form1 = await dynamicForm1?.current?.onSubmit();
+    const form2 = await dynamicForm2?.current?.onSubmit();
 
     if (form1 || form2) return;
 

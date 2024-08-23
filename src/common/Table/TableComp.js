@@ -872,7 +872,7 @@ const EditingRow = ({ TableData, editing, rowData, colorRow }) => {
                     size="small"
                     fullWidth
                     name={col.key}
-                    ref={(el) => inputRef && (inputRef.current[name] = el)}
+                    ref={(el) => inputRef && (inputRef.current["name"] = el)}
                     onBlur={formik.handleBlur}
                     onChange={formik.handleChange}
                     value={formik.values[`${col.key}`] || ""}

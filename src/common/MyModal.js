@@ -21,11 +21,11 @@ import { useSearchParams } from "react-router-dom";
 export default function MyModal(props) {
   const { open, setOpen, close, disableEscapeKeyDown } = props;
   const [param, setParams] = useSearchParams();
+  console.log(param);
   const handleClose = (e) => {
     e.target.id == "modalClose@123" && close && setOpen(false);
     if (props?.removeParams) {
       setParams("");
-      param;
     }
     let firstLogin = sessionStorage.getItem("firstLogin");
     if (firstLogin) {
