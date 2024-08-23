@@ -139,17 +139,13 @@ const DynamicForm = forwardRef(
     }
 
     // console.log(props?.customFn, "vvvv");
-    if (props?.customFn) {
-      useMemo(async () => await props.customFn(), [state]);
-    } else {
-      useMemo(async () => {
-        if (errors?.length) {
-          const newErrors = await handleUpdateErrors();
-          setErrors(newErrors);
-          props?.setErrors && props.setErrors(newErrors);
-        }
-      }, []);
-    }
+    useMemo(async () => {
+      if (errors?.length) {
+        const newErrors = await handleUpdateErrors();
+        setErrors(newErrors);
+        props?.setErrors && props.setErrors(newErrors);
+      }
+    }, []);
 
     const handleAddField = () => {
       setSelectAll([]);

@@ -172,10 +172,7 @@ const TableStyling = (props) => {
             alignItems: "center",
           }}
         >
-          {!!header &&
-            useMemo(() => {
-              return <DeleteBtnComp topBtn={props.topBtn} />;
-            }, [props.topBtn])}
+          {!!header && <DeleteBtnComp topBtn={props.topBtn} />}
 
           {props.topBtn?.addBtn ? props.topBtn?.addBtn : ""}
         </Grid>
@@ -604,22 +601,18 @@ const MainTable = (props) => {
 
   return (
     <Grid sx={{ width: "100%", height: "100%" }}>
-      {skipSearch && skipCount
-        ? null
-        : useMemo(() => {
-            return (
-              <MyTableFooter
-                total={total}
-                skipRow={skipRow}
-                search={search}
-                dispatch={dispatch}
-                skipSearch={skipSearch}
-                skipCount={skipCount}
-                data={data}
-                restData={restData}
-              />
-            );
-          }, [total, skipRow, search, dispatch, skipSearch])}
+      {skipSearch && skipCount ? null : (
+        <MyTableFooter
+          total={total}
+          skipRow={skipRow}
+          search={search}
+          dispatch={dispatch}
+          skipSearch={skipSearch}
+          skipCount={skipCount}
+          data={data}
+          restData={restData}
+        />
+      )}
 
       <TableContainer
         sx={{

@@ -35,6 +35,32 @@ import { SearchInput2 } from "../SearchInput";
 
 // ------------------ Table components ----------------------
 
+function MemoizedFunctionTable({ TableData, view, editing, rest }) {
+  return useMemo(() => {
+    const TableDataFun = () => {
+      if (editing?.new === true) {
+        if (!TableData.find((r) => r.action))
+          TableData.push({
+            action: true,
+            name: "Action",
+            customBody: () => <></>,
+          });
+      }
+
+      return TableData;
+    };
+
+    return (
+      <MainTableCompReturn
+        TableData={TableDataFun()}
+        view={view}
+        editing={editing}
+        {...rest}
+      />
+    );
+  }, [TableData, view, editing, rest]);
+}
+
 export const MainTableComp = (props) => {
   const { AllData, view, editing, ...rest } = props;
   const { TableData } = AllData;
@@ -62,31 +88,7 @@ export const MainTableComp = (props) => {
       }}
     >
       {view?.length || editing?.new === true ? (
-        <>
-          {useMemo(() => {
-            const TableDataFun = () => {
-              if (editing?.new === true) {
-                if (!TableData.find((r) => r.action))
-                  TableData.push({
-                    action: true,
-                    name: "Action",
-                    customBody: () => <></>,
-                  });
-              }
-
-              return TableData;
-            };
-
-            return (
-              <MainTableCompReturn
-                TableData={TableDataFun()}
-                view={view}
-                editing={editing}
-                {...rest}
-              />
-            );
-          }, [TableData, view, editing, rest])}
-        </>
+        <>{MemoizedFunctionTable({ TableData, view, editing, rest })}</>
       ) : (
         <Grid
           component="span"
@@ -1035,39 +1037,33 @@ export const MyTableFooter = ({
               boxSizing: "border-box",
             }}
           >
-            {useMemo(() => {
-              return total ? (
-                <Typography
-                  variant="body2"
-                  sx={{
-                    mr: "10px",
-                    color: "text.secondary",
-                  }}
-                >
-                  Count :
-                  <Grid
-                    component="span"
-                    sx={(theme) => ({
-                      color: "text.primary",
-                      px: "5px",
-                      ml: "5px",
-                      borderRadius: "4px",
-                      backgroundColor: `${theme.palette.background.card2}99`,
-                    })}
-                  >
-                    {total}
-                  </Grid>
-                </Typography>
-              ) : null;
-            }, [total])}
+            <Typography
+              variant="body2"
+              sx={{
+                mr: "10px",
+                color: "text.secondary",
+              }}
+            >
+              Count :
+              <Grid
+                component="span"
+                sx={(theme) => ({
+                  color: "text.primary",
+                  px: "5px",
+                  ml: "5px",
+                  borderRadius: "4px",
+                  backgroundColor: `${theme.palette.background.card2}99`,
+                })}
+              >
+                {total}
+              </Grid>
+            </Typography>
 
-            {useMemo(() => {
-              return skipRow ? null : (
-                <ChangeRow size={size} total={total} dispatch={dispatch} />
-              );
-            }, [size, skipRow, dispatch])}
+            {skipRow ? null : (
+              <ChangeRow size={size} total={total} dispatch={dispatch} />
+            )}
 
-            {useMemo(() => {
+            {(() => {
               const HandelPageChange = (e, v) => {
                 dispatch({ action: AllActions.page, value: v });
               };
@@ -1085,7 +1081,7 @@ export const MyTableFooter = ({
                   ) : null}
                 </>
               );
-            }, [page, count])}
+            })()}
           </Grid>
         ) : null}
       </>
