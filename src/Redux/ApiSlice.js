@@ -3,7 +3,7 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 export const apiSlice = createApi({
   reducerPath: "api",
   baseQuery: fetchBaseQuery({
-    baseUrl: "http://localhost:8080/stationary/",
+    baseUrl: "https://stationary-backend-hc6v.onrender.com/stationary/",
     prepareHeaders: (headers) => {
       headers.set("Content-Type", "application/json");
       return headers;
