@@ -11,8 +11,8 @@ export default function LoginForm() {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
     if (
-      data.get("email") == "abdulmanan" &&
-      data.get("password") == "abdul@123"
+      data.get("email") === "abdulmanan" &&
+      data.get("password") === "abdul@123"
     ) {
       sessionStorage.setItem("token", "stationary");
       return navigate("/stationary");
@@ -42,7 +42,7 @@ export default function LoginForm() {
             <LockOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
-            Sign in
+            Log in
           </Typography>
           <Box
             component="form"

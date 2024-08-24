@@ -24,7 +24,7 @@ const StationaryPage = () => {
       title: "Create Items",
     },
     {
-      title: "Item-Employee Assign",
+      title: "Item Distribution",
     },
   ];
   const handleChange = (event, newValue) => {
@@ -87,7 +87,7 @@ const StationaryPage = () => {
             fontFamily: "Poppins, sans-serif",
           }}
         >
-          STATIONARY MANAGER
+          WAPCOS STATIONARY (INFS-II)
         </Typography>
 
         <MyButton

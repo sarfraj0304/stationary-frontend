@@ -30,22 +30,25 @@ const EmployeeItems = ({ employees, items }) => {
   const [filter, setFilter] = useState({
     userUid: "",
     date: "",
+    itemUid: "",
   });
 
+  const handleGetQuery = (data) => {
+    const queryParams = [];
+    for (let key in data) {
+      if (data[key]) {
+        if (key === "date") {
+          queryParams.push(`${key}=${moment(data[key])?.format("DD-MM-YYYY")}`);
+        } else {
+          queryParams.push(`${key}=${data[key]}`);
+        }
+      }
+    }
+    return queryParams.length ? `?${queryParams.join("&")}` : "";
+  };
+
   const { data, isLoading, isFetching, isError } = useUserItemsGetQuery({
-    url: `user-item-get${
-      filter?.userUid && !filter?.date ? `?userUid=${filter?.userUid}` : ""
-    }${
-      filter?.date && !filter?.userUid
-        ? `?date=${moment(filter?.date).format("DD-MM-YYYY")}`
-        : ""
-    }${
-      filter?.userUid && filter?.date
-        ? `?userUid=${filter?.userUid}&date=${moment(filter?.date).format(
-            "DD-MM-YYYY"
-          )}`
-        : ""
-    }`,
+    url: `user-item-get${handleGetQuery(filter)}`,
   });
 
   const tableAddon = {
@@ -189,8 +192,17 @@ const EmployeeItems = ({ employees, items }) => {
     {
       field: {
         name: "userUid",
-        options: employees || [],
+        options: [{ key: "Select Employee", value: "" }, ...employees] || [],
         label: "Select Employee",
+        control: "select",
+      },
+      row: 1,
+    },
+    {
+      field: {
+        name: "itemUid",
+        options: [{ key: "Select Items", value: "" }, ...items] || [],
+        label: "Select Items",
         control: "select",
       },
       row: 1,
@@ -226,6 +238,7 @@ const EmployeeItems = ({ employees, items }) => {
             initialValues2={{
               userUid: "",
               date: "",
+              itemUid: "",
             }}
             manualReset={(setFieldValue, val, init) => {
               for (const key in init) {
