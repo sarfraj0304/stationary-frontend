@@ -16,6 +16,8 @@ export default function LoginForm() {
     ) {
       sessionStorage.setItem("token", "stationary");
       return navigate("/stationary");
+    } else {
+      alert("Wrong id pass!");
     }
   };
 

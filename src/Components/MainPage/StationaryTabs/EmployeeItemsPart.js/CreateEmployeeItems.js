@@ -81,7 +81,7 @@ const CreateEmployeeItems = ({ data, employees, items, setTableView }) => {
       options: (e) => {
         // let temp = items?.find((el) => el?.value == e?.itemUid)?.quantity;
         return (
-          new Array(100)
+          new Array(200)
             .fill(0)
             .map((el, i) => ({ key: i + 1, value: i + 1 })) || []
         );

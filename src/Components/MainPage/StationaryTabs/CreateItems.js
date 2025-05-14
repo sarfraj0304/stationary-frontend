@@ -1,6 +1,6 @@
 import React, { useRef, useState } from "react";
 import MyCard from "../../../common/MyCard";
-import { Grid, IconButton, Tooltip } from "@mui/material";
+import { Grid, IconButton, Tooltip, Typography } from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
 import CommonTable from "../../../common/CommonTable";
 import { useSearchParams } from "react-router-dom";
@@ -9,6 +9,7 @@ import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import MyButton from "../../../common/MyButton";
 import ToastHandler from "../../../common/ToastHandler";
 import { DeletePopup } from "../../../common/MyModal";
+import DataStyle from "../../../common/DataStyle";
 
 const CreateItems = ({ data, isLoading, isFetching, isError }) => {
   const [openDel, setOpenDel] = useState(false);
@@ -74,28 +75,111 @@ const CreateItems = ({ data, isLoading, isFetching, isError }) => {
       sorting: true,
       edit: true,
       editValidation: { type: "true", max: 100, required: true },
+      customBody: (data) => {
+        let temp = (
+          (Number(data?.quantity) / Number(data?.actualQuantity)) *
+          100
+        ).toFixed(2);
+        return (
+          <DataStyle
+            sx={{
+              width: "100%",
+              bgcolor: temp <= 20 ? "#ffa099" : "",
+              padding: "0px",
+              margin: "0px",
+              borderRadius: "5px",
+            }}
+          >
+            <Typography
+              sx={{
+                color: temp <= 20 ? "black" : "text.secondary",
+                fontWeight: temp <= 20 ? 700 : 200,
+                fontSize: "14px",
+              }}
+            >
+              {data?.name}
+            </Typography>
+          </DataStyle>
+        );
+      },
     },
     {
       name: "Quantity",
       key: "actualQuantity",
-      align: "left",
+      align: "center",
       search: true,
       freezeFirst: false,
       sorting: true,
       edit: true,
       dataStyle: { number: true },
       editValidation: { type: "true", max: 100, required: true },
+      size: { size: "200px" },
+      customBody: (data) => {
+        let temp = (
+          (Number(data?.quantity) / Number(data?.actualQuantity)) *
+          100
+        ).toFixed(2);
+        return (
+          <DataStyle
+            sx={{
+              width: "100%",
+              bgcolor: temp <= 20 ? "#ffa099" : "",
+              padding: "0px",
+              margin: "0px",
+              borderRadius: "5px",
+            }}
+          >
+            <Typography
+              sx={{
+                color: temp <= 20 ? "black" : "text.secondary",
+                fontWeight: temp <= 20 ? 700 : 200,
+                fontSize: "14px",
+              }}
+            >
+              {data?.actualQuantity}
+            </Typography>
+          </DataStyle>
+        );
+      },
     },
     {
       name: "Available Stock",
       key: "quantity",
-      align: "left",
+      align: "center",
       search: true,
       freezeFirst: false,
       sorting: true,
       edit: true,
       dataStyle: { number: true },
+      size: { size: "150px" },
       editValidation: { type: "true", max: 100, required: true },
+      customBody: (data) => {
+        let temp = (
+          (Number(data?.quantity) / Number(data?.actualQuantity)) *
+          100
+        ).toFixed(2);
+        return (
+          <DataStyle
+            sx={{
+              width: "100%",
+              bgcolor: temp <= 20 ? "#ffa099" : "",
+              padding: "0px",
+              margin: "0px",
+              borderRadius: "5px",
+            }}
+          >
+            <Typography
+              sx={{
+                color: temp <= 20 ? "black" : "text.secondary",
+                fontWeight: temp <= 20 ? 700 : 200,
+                fontSize: "14px",
+              }}
+            >
+              {data?.quantity}
+            </Typography>
+          </DataStyle>
+        );
+      },
     },
     {
       action: true,
